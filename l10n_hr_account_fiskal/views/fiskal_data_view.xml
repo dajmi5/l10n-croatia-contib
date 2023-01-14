@@ -3,7 +3,7 @@
     <record id="view_fiskal_prostor_form" model="ir.ui.view">
         <field name="name">view_fiskal_prostor_form</field>
         <field name="model">l10n.hr.fiskal.prostor</field>
-        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_prostor_form"/>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_prostor_form" />
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Fiskalizacija - Komunikacija">
@@ -11,7 +11,7 @@
                 </page>
             </notebook>
             <xpath expr="//tree/field[@name='state']" position="before">
-                <field name="fiskalisation_active" widget="boolean_toggle"/>
+                <field name="fiskalisation_active" widget="boolean_toggle" />
             </xpath>
         </field>
     </record>
@@ -19,10 +19,10 @@
     <record id="view_fiskal_uredjaj_tree" model="ir.ui.view">
         <field name="name">view_fiskal_uredjaj_tree</field>
         <field name="model">l10n.hr.fiskal.uredjaj</field>
-        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_uredjaj_tree"/>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_uredjaj_tree" />
         <field name="arch" type="xml">
             <field name="lock" position="before">
-                <field name="fiskalisation_active" widget="boolean_toggle"/>
+                <field name="fiskalisation_active" widget="boolean_toggle" />
             </field>
         </field>
     </record>

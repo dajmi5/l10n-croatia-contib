@@ -29,7 +29,7 @@ class AccountMove(models.Model):
         copy=False,
         readonly=True,
         states={"draft": [("readonly", False)]},
-        help="Croatia Fiskal datetime value as string." " shoud respect format: ",
+        help="Croatia Fiskal datetime value as string, should respect format: ",
     )
     l10n_hr_fiskalni_broj = fields.Char(
         string="Fiskal number",
@@ -49,7 +49,7 @@ class AccountMove(models.Model):
         help="According to Fiscalization Law and regulative "
         "there is 5 possible options: T, G, K, C, O\n"
         "T - Transaction bank account, is applicable without fiskalisation\n"
-        " and for other options needed please install fiscalisation extension module"
+        " and for other options needed please install fiscalisation extension module",
     )
 
     l10n_hr_fiskal_uredjaj_id = fields.Many2one(
@@ -70,12 +70,13 @@ class AccountMove(models.Model):
         " like 2 or more devices for this journal",
     )
 
-    @api.depends("journal_id",
-                 "journal_id.l10n_hr_prostor_id",
-                 "journal_id.l10n_hr_prostor_id.state",
-                 "journal_id.l10n_hr_fiskal_uredjaj_ids",
-                 "journal_id.l10n_hr_fiskal_uredjaj_ids.state"
-                 )
+    @api.depends(
+        "journal_id",
+        "journal_id.l10n_hr_prostor_id",
+        "journal_id.l10n_hr_prostor_id.state",
+        "journal_id.l10n_hr_fiskal_uredjaj_ids",
+        "journal_id.l10n_hr_fiskal_uredjaj_ids.state",
+    )
     def _compute_allowed_fiskal_device(self):
         for move in self:
             vals = []

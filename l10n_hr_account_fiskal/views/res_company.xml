@@ -9,10 +9,7 @@
         />
         <field name="arch" type="xml">
             <notebook name="croatia_notebook" position="before">
-                 <group
-                        string="Fiscalisation data"
-                        name="l10n_hr_fiskal_full"
-                    >
+                 <group string="Fiscalisation data" name="l10n_hr_fiskal_full">
                     <field name="l10n_hr_fiskal_cert_id" />
                     <field name="l10n_hr_fiskal_spec" />
     <!--                <field name="l10n_hr_fiskal_schema" />-->

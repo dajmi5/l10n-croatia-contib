@@ -41,7 +41,7 @@
   <wsdl:message name="RacuniPDResponse">
     <wsdl:part element="fis:RacunPDOdgovor" name="response"/>
   </wsdl:message>
-  
+
   <wsdl:message name="PromijeniNacPlacRequest">
     <wsdl:part element="fis:PromijeniNacPlacZahtjev" name="request"/>
   </wsdl:message>

@@ -1,5 +1,4 @@
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo import fields, models
 
 
 class Company(models.Model):
@@ -27,11 +26,13 @@ class Company(models.Model):
     )
     l10n_hr_tax_model = fields.Selection(
         selection=[
-            ('r1', 'R1 - tax based on invoice'),
-            ('r2', 'R2 - tax based on payment'),
-            ('r0', 'R0 - NOT subject of taxation'),
-            ('not_rh', 'Not subject of taxation in Croatia')
-        ], string="Tax model", required=True,
+            ("r1", "R1 - tax based on invoice"),
+            ("r2", "R2 - tax based on payment"),
+            ("r0", "R0 - NOT subject of taxation"),
+            ("not_rh", "Not subject of taxation in Croatia"),
+        ],
+        string="Tax model",
+        required=True,
         track=True,
         default="r1",  # TODO: multicompany improove!
     )

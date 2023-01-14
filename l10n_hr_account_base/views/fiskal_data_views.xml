@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <menuitem
-            id="menu_finance_config_croatia"
-            name="Croatia settings"
-            sequence="2"
-            parent="account.menu_finance_configuration"
-        />
+        id="menu_finance_config_croatia"
+        name="Croatia settings"
+        sequence="2"
+        parent="account.menu_finance_configuration"
+    />
     <!-- Fiskal Prostor -->
     <record id="view_fiskal_prostor_tree" model="ir.ui.view">
         <field name="name">view_fiskal_prostor_tree</field>
@@ -63,10 +63,7 @@
                 </header>
                 <sheet>
                     <group>
-                        <field
-                            name='name'
-                            attrs="{'readonly':[('lock','=',True)]}"
-                        />
+                        <field name='name' attrs="{'readonly':[('lock','=',True)]}" />
                         <field
                             name='oznaka_prostor'
                             attrs="{'readonly':[('lock','=',True)]}"
@@ -95,10 +92,7 @@
                                     <field name="prostor_id" invisible="1" />
                                     <field name="oznaka_uredjaj" />
                                     <field name="lock" optional="hide" />
-                                    <field
-                                        name="mjesto_izdavanja"
-                                        optional="hide"
-                                    />
+                                    <field name="mjesto_izdavanja" optional="hide" />
                                     <field
                                         name="journal_ids"
                                         widget="many2many_tags"
@@ -120,14 +114,16 @@
                                         attrs="{'invisible': [('state', 'not in', ('draft', 'pause'))]}"
                                     />
                                     <button
-                                        type="object" string="Pause"
+                                        type="object"
+                                        string="Pause"
                                         name="button_pause_device"
                                         class="btn-danger"
                                         icon="fa-pause"
                                         attrs="{'invisible': [('state', '!=', 'active')]}"
                                     />
                                     <button
-                                        type="object" string="Close"
+                                        type="object"
+                                        string="Close"
                                         name="button_close_device"
                                         class="btn-danger"
                                         icon="fa-stop"
@@ -164,10 +160,7 @@
                                     <field name="code" optional="show" />
 <!--                                        <field name="default_account_id" optional="show"/>-->
                                     <field name="active" optional="hide" />
-                                    <field
-                                        name="show_on_dashboard"
-                                        optional="hide"
-                                    />
+                                    <field name="show_on_dashboard" optional="hide" />
                                     <field
                                         name="company_id"
                                         groups="base.group_multi_company"
@@ -247,10 +240,7 @@
                 </header>
                 <sheet>
                 <group>
-                    <field
-                            name="prostor_id"
-                            attrs="{'readonly':[('lock','=',True)]}"
-                        />
+                    <field name="prostor_id" attrs="{'readonly':[('lock','=',True)]}" />
                     <field name="name" attrs="{'readonly':[('lock','=',True)]}" />
                     <field name="mjesto_izdavanja" optional="hide" />
                     <field name="lock" readonly="1" invisible="1" />

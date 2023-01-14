@@ -253,7 +253,6 @@ class FiskalUredjaj(models.Model):
             # if pos.sljed_racuna == 'N':
             # TODO: fetch journals possible for this premise
 
-
     @api.onchange("prostor_id")
     def on_change_prostor_id(self):
         if self.prostor_id:

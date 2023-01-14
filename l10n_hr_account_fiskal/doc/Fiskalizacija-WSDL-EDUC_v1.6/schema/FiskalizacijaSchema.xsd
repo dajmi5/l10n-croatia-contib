@@ -171,7 +171,7 @@
         <choice>
           <element name="Racun" type="tns:RacunType" minOccurs="1" maxOccurs="1" />
           <element name="RacunPD" type="tns:RacunPDType" minOccurs="1" maxOccurs="1" />
-        </choice>	
+        </choice>
         <element ref="ds:Signature" minOccurs="0" maxOccurs="1" />
       </sequence>
       <attribute name="Id" type="string" />
@@ -190,7 +190,7 @@
         <choice>
           <element name="Racun" type="tns:RacunType" minOccurs="1" maxOccurs="1" />
           <element name="RacunPD" type="tns:RacunPDType" minOccurs="1" maxOccurs="1" />
-        </choice>	
+        </choice>
         <element name="Greske" type="tns:GreskeType" minOccurs="0" maxOccurs="1" />
         <element ref="ds:Signature" minOccurs="0" maxOccurs="1" />
       </sequence>

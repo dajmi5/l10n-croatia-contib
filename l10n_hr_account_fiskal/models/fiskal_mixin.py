@@ -1,14 +1,17 @@
 import base64
-import logging
-import qrcode
 import io
+import logging
 from datetime import datetime
-from odoo import _, fields, models, api
-from odoo.exceptions import ValidationError, UserError
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+
+import qrcode
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 from ..fiskal import fiskal
+
 _logger = logging.getLogger(__name__)
+
 
 class FiscalFiscalMixin(models.AbstractModel):
     """
@@ -29,15 +32,16 @@ class FiscalFiscalMixin(models.AbstractModel):
             # imala neku gresku pa JIR nije dodjeljen
             data += "zki=" + self.l10n_hr_zki
         datum = datetime.strptime(
-            self.l10n_hr_vrijeme_izdavanja,
-            "%d.%m.%Y %H:%M").strftime("%Y%m%d_%H%M")
+            self.l10n_hr_vrijeme_izdavanja, "%d.%m.%Y %H:%M"
+        ).strftime("%Y%m%d_%H%M")
         data += "&datv=" + datum
         iznos = "&izn=%.2f" % self.amount_total
         data += iznos.replace(".", ",")
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10, border=1
+            box_size=10,
+            border=1,
         )
         qr.add_data(data)
         qr.make(fit=True)
@@ -93,7 +97,7 @@ class FiscalFiscalMixin(models.AbstractModel):
     )
     l10n_hr_fiskal_qr = fields.Binary(
         compute="_compute_l10n_hr_fiskal_qr",
-        help="Binary field visible in the interface"
+        help="Binary field visible in the interface",
     )
 
     def _l10n_hr_post_fiskal_check(self):

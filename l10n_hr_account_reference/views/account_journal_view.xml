@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="view_account_journal_reference_form" model="ir.ui.view">
@@ -7,10 +7,22 @@
             <field name="inherit_id" ref="account.view_account_journal_form" />
             <field name="arch" type="xml">
                 <field name="invoice_reference_type" position="after">
-                    <field name="property_l10n_hr_P1_pnbr" attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"/>
-                    <field name="property_l10n_hr_P2_pnbr" attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"/>
-                    <field name="property_l10n_hr_P3_pnbr" attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"/>
-                    <field name="property_l10n_hr_P4_pnbr" attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"/>
+                    <field
+                        name="property_l10n_hr_P1_pnbr"
+                        attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"
+                    />
+                    <field
+                        name="property_l10n_hr_P2_pnbr"
+                        attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"
+                    />
+                    <field
+                        name="property_l10n_hr_P3_pnbr"
+                        attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"
+                    />
+                    <field
+                        name="property_l10n_hr_P4_pnbr"
+                        attrs="{'invisible': [('invoice_reference_model', 'not in', ['00', '01', '99'])]}"
+                    />
                 </field>
             </field>
         </record>

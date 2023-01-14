@@ -37,13 +37,15 @@ verzija: 1.5 Datum verzije: 20.12.2019.
 
 """
 
+
 class FiskalCertificate(models.Model):
     _name = "l10n.hr.fiskal.certificate"
     _description = "Fiskal certificate store"
 
     company_id = fields.Many2one(
-        comodel_name="res.company", required=True,
-        default=lambda s: s.env.user.company_id
+        comodel_name="res.company",
+        required=True,
+        default=lambda s: s.env.user.company_id,
     )
     # 1. load cert file fields
     cert_file = fields.Binary(string="Received cert file")
@@ -62,7 +64,7 @@ class FiskalCertificate(models.Model):
     fiskal_schema = fields.Selection(
         selection=[
             ("EDUC_v1.6", "DEMO schema v1.6"),
-            ("PROD_V1.6", "PROD Schema v1.6")
+            ("PROD_V1.6", "PROD Schema v1.6"),
         ],
         string="Fiskalizaction schema",
         help=SCHEMA_HELP,
