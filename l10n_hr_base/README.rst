@@ -11,6 +11,7 @@ Podaci o poduzeću u raznim tijelima drzavne uprave:
   - Br. obveze mirovinsko
   - Br. obveze zdravstveno
   - Maticni broj
+  - NKD šifra
 
 
 res_company : dodana metoda 'get_l10n_hr_time_formatted'
@@ -37,4 +38,3 @@ Contributors
 
 - Goran Kliska (goran.kliska@slobodni-programi.hr)
 - Davor Bojkić (davor.bojkic@dajmi5.hr)
-
