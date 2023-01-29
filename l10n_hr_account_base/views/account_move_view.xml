@@ -19,17 +19,13 @@
                     tooltip="In order to validate invoice, you need activated pos device, Check business premises and registers settings"
                 />
             </widget>
-            <field name="move_type" position="after">
+            <field name="name" position="after">
                 <span class="oe_inline">
                     <label
                         string="HR - Fiskal number"
                         for="l10n_hr_fiskalni_broj"
                         attrs="{'invisible': [('l10n_hr_fiskalni_broj', '=', False)]}"
                     />
-                </span>
-            </field>
-            <field name="name" position="after">
-                <span class="oe_inline">
                     <field
                         name="l10n_hr_fiskalni_broj"
                         readonly="1"
