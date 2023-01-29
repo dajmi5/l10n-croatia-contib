@@ -33,7 +33,7 @@ class Company(models.Model):
         ],
         string="Tax model",
         required=True,
-        track=True,
+        tracking=True,
         default="r1",  # TODO: multicompany improove!
     )
 
