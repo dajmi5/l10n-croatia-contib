@@ -197,8 +197,10 @@ class FiscalFiscalMixin(models.AbstractModel):
         return tax_data
 
     def _prepare_fisk_racun_taxes(self, factory):
-        tax_data = self._get_fisk_tax_values()
         res = {}
+        if not self.company_id.l10n_hr_fiskal_taxative:
+            return res
+        tax_data = self._get_fisk_tax_values()
         for pdv in tax_data["Pdv"]:
             if not res.get("Pdv"):
                 res["Pdv"] = []
