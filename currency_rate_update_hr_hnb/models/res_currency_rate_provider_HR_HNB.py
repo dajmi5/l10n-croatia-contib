@@ -70,15 +70,19 @@ class ResCurrencyRateProviderHrHNB(models.Model):
 
     def _l10n_hr_hnb_urlopen(self, currencies=None, date_from=None, date_to=None):
         url = "https://api.hnb.hr/tecajn-eur/v3"
+        data_currency, data_date = "", ""
         if date_from is not None:
             if date_to is not None:
-                url += "?datum-primjene-od=%s&datum-primjene-do=%s" % (
+                data_date = "datum-primjene-od=%s&datum-primjene-do=%s" % (
                     fields.Date.to_string(date_from),
                     fields.Date.to_string(date_to),
                 )
         if currencies is not None:
-            cur = "&".join(["valuta=" + c for c in currencies])
-            url += "?" + cur
+            data_currency = "&".join(["valuta=" + c for c in currencies])
+
+        url += "?" + data_currency
+        if data_date:
+            url += "&" + data_date
 
         res = request.urlopen(url, timeout=15)
         data = json.loads(res.read().decode("UTF-8"))
