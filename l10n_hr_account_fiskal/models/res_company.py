@@ -95,21 +95,27 @@ class Company(models.Model):
             "greska": error_log != "" and error_log or "OK",
             "company_id": self.id,
         }
-        if origin._name == 'account.move':
-            values.update({
-                "fiskal_prostor_id": origin.l10n_hr_fiskal_uredjaj_id.prostor_id.id,
-                "fiskal_uredjaj_id": origin.l10n_hr_fiskal_uredjaj_id.id,
-                "invoice_id": origin.id
-            })
-        elif origin._name == 'l10n.hr.fiskal.uredjaj':
-            values.update({
-                "fiskal_prostor_id": origin.prostor_id.id,
-                "fiskal_uredjaj_id": origin.id,
-            })
-        elif origin._name == 'l10n.hr.fiskal.prostor':
-            values.update({
-                "fiskal_prostor_id": origin.id,
-            })
+        if origin._name == "account.move":
+            values.update(
+                {
+                    "fiskal_prostor_id": origin.l10n_hr_fiskal_uredjaj_id.prostor_id.id,
+                    "fiskal_uredjaj_id": origin.l10n_hr_fiskal_uredjaj_id.id,
+                    "invoice_id": origin.id,
+                }
+            )
+        elif origin._name == "l10n.hr.fiskal.uredjaj":
+            values.update(
+                {
+                    "fiskal_prostor_id": origin.prostor_id.id,
+                    "fiskal_uredjaj_id": origin.id,
+                }
+            )
+        elif origin._name == "l10n.hr.fiskal.prostor":
+            values.update(
+                {
+                    "fiskal_prostor_id": origin.id,
+                }
+            )
         return values
 
     def create_fiskal_log(self, msg_type, msg_obj, response, time_start, origin):

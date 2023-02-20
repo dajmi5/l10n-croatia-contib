@@ -1,6 +1,5 @@
-
-import logging
 import base64
+import logging
 import os
 from datetime import datetime
 
@@ -160,7 +159,6 @@ class FiskalCertificate(models.Model):
         # sub_cert = subject.get(b"CN", False)
         # sub_cert = sub_cert == b"FISKAL 2" and "FISKAL 2" or "FISKAL 1"
 
-
     def action_validate(self):
         for cert in self:
             if cert.not_after < fields.Datetime.now():
@@ -192,7 +190,7 @@ class FiskalCertificate(models.Model):
     def _get_key_cert_file_name(self):
         key = "{}-{}-{}_key.pem".format(self.cert_type, self.id, self._cr.dbname)
         crt = "{}-{}-{}_crt.pem".format(self.cert_type, self.id, self._cr.dbname)
-        #fina = "{}-{}-{}_fina.pem".format(self.cert_type, self.id, self._cr.dbname)
+        # fina = "{}-{}-{}_fina.pem".format(self.cert_type, self.id, self._cr.dbname)
         return key, crt
 
     def _disk_check_exist(self, file):

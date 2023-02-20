@@ -62,7 +62,8 @@ class Fiskalizacija:
         transport = Transport(session=session)
         signer = Signer(cert_path=fiskal_data["cert"], key_path=fiskal_data["key"])
         verifier = Verifier(
-            cert_path=fiskal_data["app_cert"], ca_cert_paths=[fiskal_data["fina_bundle"]]
+            cert_path=fiskal_data["app_cert"],
+            ca_cert_paths=[fiskal_data["fina_bundle"]],
         )
         history = HistoryPlugin()
         fiskal_plugin = EnvelopedSignaturePlugin(self, signer, verifier)
@@ -136,5 +137,3 @@ class Fiskalizacija:
             * test_message - message to use
         """
         return self.client.service.echo(test_message)
-
-    

@@ -36,17 +36,11 @@
                                     name="company_id"
                                     groups="base.group_multi_company"
                                 />
-                                <field
-                                    name="number_next_actual"
-                                    string="Next Number"
-                                />
+                                <field name="number_next_actual" string="Next Number" />
                                 <field name="number_increment" optional="hide" />
                                 <field name="implementation" />
                                 <field name="use_date_range" optional="hide" />
-                                <field
-                                    name="date_range_ids"
-                                    widget="many2many_tags"
-                                />
+                                <field name="date_range_ids" widget="many2many_tags" />
                                 <field
                                     name="active"
                                     optional="hide"
