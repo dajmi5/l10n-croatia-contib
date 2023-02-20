@@ -316,7 +316,6 @@ class FiscalFiscalMixin(models.AbstractModel):
         )
         assert len(fis_racun) == 3, "Invoice must be assembled using 3 values!"
         fiskal_data["racun"] = fis_racun
-        fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
         if not self.l10n_hr_zki:
             if fiskal_data["demo"]:
                 # uzimam oib iz certifikata, bez obzira na company oib
@@ -332,6 +331,7 @@ class FiscalFiscalMixin(models.AbstractModel):
                 fis_racun[2],
                 fiskal.format_decimal(self.amount_total),
             ]
+            fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
             self.l10n_hr_zki = fiskal.generate_zki(
                 zki_datalist=zki_datalist, signer=fisk.signer
             )

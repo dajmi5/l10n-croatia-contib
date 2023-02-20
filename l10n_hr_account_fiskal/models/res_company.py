@@ -95,18 +95,21 @@ class Company(models.Model):
             "greska": error_log != "" and error_log or "OK",
             "company_id": self.id,
         }
-        if origin is not None:
-            values.update(
-                {
-                    "fiskal_prostor_id": origin._name == "account.move"
-                    and origin.l10n_hr_fiskal_uredjaj_id.prostor_id.id
-                    or False,
-                    "fiskal_uredjaj_id": origin._name == "account.move"
-                    and origin.l10n_hr_fiskal_uredjaj_id.id
-                    or False,
-                    "invoice_id": origin._name == "account.move" and origin.id or False,
-                }
-            )
+        if origin._name == 'account.move':
+            values.update({
+                "fiskal_prostor_id": origin.l10n_hr_fiskal_uredjaj_id.prostor_id.id,
+                "fiskal_uredjaj_id": origin.l10n_hr_fiskal_uredjaj_id.id,
+                "invoice_id": origin.id
+            })
+        elif origin._name == 'l10n.hr.fiskal.uredjaj':
+            values.update({
+                "fiskal_prostor_id": origin.prostor_id.id,
+                "fiskal_uredjaj_id": origin.id,
+            })
+        elif origin._name == 'l10n.hr.fiskal.prostor':
+            values.update({
+                "fiskal_prostor_id": origin.id,
+            })
         return values
 
     def create_fiskal_log(self, msg_type, msg_obj, response, time_start, origin):
@@ -116,19 +119,19 @@ class Company(models.Model):
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
         self.env["l10n.hr.fiskal.log"].create(log_vals)
 
-    def button_test_echo(self):
+    def button_test_echo(self, origin=None):
         fd = self.get_fiskal_data()
         fisk = fiskal.Fiskalizacija(fiskal_data=fd)
         time_start = self.get_l10n_hr_time_formatted()
         msg = "TEST message"
         echo = fisk.test_service(msg)
-        self.create_fiskal_log("echo", fisk, echo, time_start, None)
+        self.create_fiskal_log("echo", fisk, echo, time_start, origin)
 
     def get_fiskal_data(self):
         fina_cert = self.l10n_hr_fiskal_cert_id
         if not fina_cert:
             raise MissingError(_("Fiskal Cerificate not found! Check company setup!"))
-        fina_pem, key_file, cert_file, production = fina_cert.get_fiskal_ssl_data()
+        key_file, cert_file, production = fina_cert.get_fiskal_ssl_data()
 
         fiskal_path = self._get_fiskal_path()
         schema = "".join(
@@ -140,22 +143,15 @@ class Company(models.Model):
             ]
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
-
-        ca_path, cis_ca_list = None, []
-        cert_path = fiskal_path + "/fina_cert/" + self.l10n_hr_fiskal_cert_id.cert_type
-        for fcert in os.listdir(cert_path):
-            fpath = os.path.join(cert_path, fcert)
-            cis_ca_list.append(fpath)
+        cert_path = fiskal_path + "fina_cert/" + self.l10n_hr_fiskal_cert_id.cert_type
         res = {
-            "company_oib": self.vat,
+            "company_oib": self.company_registry,
             "cert_oib": self.l10n_hr_fiskal_cert_id.cert_oib,
             "wsdl": wsdl_file,
             "key": key_file,
             "cert": cert_file,
-            "fina": fina_pem,
-            "ca_list": cis_ca_list,
-            "ca_path": ca_path,
-            "url": "fiskalcis" if production else "fiskalcistest",
+            "fina_bundle": cert_path + "/fina_bundle.pem",
+            "app_cert": cert_path + "/certificate.pem",
             "demo": not production,
         }
         return res

@@ -17,7 +17,8 @@
                     />
             </field>
             <group name="l10n_hr_base_fiskal" position="after">
-                <group name="l10n_hr_fiskal_full">
+                <group name="l10n_hr_fiskal_full"
+                       attrs="{'invisible': [('l10n_hr_zki','=',False)]}">
                     <field name="l10n_hr_zki" />
                     <field name="l10n_hr_jir" />
                     <field name="l10n_hr_fiskal_qr" widget="image" />

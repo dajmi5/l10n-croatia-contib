@@ -148,11 +148,6 @@ msgid "Certificate access error, check password or uploaded file type!"
 msgstr "Greška pristupa certifikatu, provjerite lozinku i vrstu datoteke!"
 
 #. module: l10n_hr_account_fiskal
-#: model:ir.model.fields,help:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__fina_cert_bundle
-msgid "Certificate bundle from FINA matching certificate"
-msgstr "Skup certifikata FINE koji odgovaraju certifikatu"
-
-#. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_log__type__provjera
 msgid "Check/Verify fiscalisation data"
 msgstr "Provjeri/Potvrdi podatke fiskalizacije"

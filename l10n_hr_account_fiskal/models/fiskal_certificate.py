@@ -92,17 +92,8 @@ class FiskalCertificate(models.Model):
         readonly=True,
         help="Fiskal certificate from user P12/PFX cert file",
     )
-    fina_certs_data = fields.Text(
-        readonly=True,
-    )
-    fina_cert_bundle = fields.Text(
-        string="Fina certificates",
-        readonly=True,
-        help="Certificate bundle from FINA matching certificate",
-    )
     not_before = fields.Datetime(readonly=True)
     not_after = fields.Datetime(readonly=True)
-
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
@@ -164,18 +155,11 @@ class FiskalCertificate(models.Model):
         self.state = "convert"
         self.cert_type = "demo" if "demo" in self.cert_issuer.lower() else "prod"
         self.fiskal_schema = self.cert_type == "demo" and "EDUC_v1.6" or "PROD_V1.6"
-        fiskal_path = self.company_id._get_fiskal_path()
-        cert_paths = self.cert_type == "demo" and DEMO or PROD
-        sub_cert = subject.get(b"CN", False)
-        sub_cert = sub_cert == b"FISKAL 2" and "FISKAL 2" or "FISKAL 1"
-        self.fina_certs_data = "\n".join((cert_paths[sub_cert], cert_paths["root"]))
-        fina_bundle = ""
-        for file in (cert_paths["root"], cert_paths[sub_cert]):
-            path = fiskal_path + file
-            with open(path, "r") as rf:
-                pem = rf.read()
-                fina_bundle += pem
-        self.fina_cert_bundle = fina_bundle
+        # fiskal_path = self.company_id._get_fiskal_path()
+        # cert_paths = self.cert_type == "demo" and DEMO or PROD
+        # sub_cert = subject.get(b"CN", False)
+        # sub_cert = sub_cert == b"FISKAL 2" and "FISKAL 2" or "FISKAL 1"
+
 
     def action_validate(self):
         for cert in self:
@@ -208,8 +192,8 @@ class FiskalCertificate(models.Model):
     def _get_key_cert_file_name(self):
         key = "{}-{}-{}_key.pem".format(self.cert_type, self.id, self._cr.dbname)
         crt = "{}-{}-{}_crt.pem".format(self.cert_type, self.id, self._cr.dbname)
-        fina = "{}-{}-{}_fina.pem".format(self.cert_type, self.id, self._cr.dbname)
-        return key, crt, fina
+        #fina = "{}-{}-{}_fina.pem".format(self.cert_type, self.id, self._cr.dbname)
+        return key, crt
 
     def _disk_check_exist(self, file):
         return os.path.exists(file)
@@ -237,13 +221,10 @@ class FiskalCertificate(models.Model):
         """
         production = self.cert_type == "prod"
         f_path = self._get_fiskal_cert_path()
-        key, cert, fina = self._get_key_cert_file_name()
-        for pem in (key, cert, fina):
+        key, cert = self._get_key_cert_file_name()
+        for pem in (key, cert):
             file = os.path.join(f_path, pem)
-            if pem.endswith("_fina.pem"):
-                content = self.fina_cert_bundle
-                fina = file
-            elif pem.endswith("_key.pem"):
+            if pem.endswith("_key.pem"):
                 content = self.pem_key
                 key = file
             else:
@@ -252,4 +233,4 @@ class FiskalCertificate(models.Model):
 
             if self._disk_check_exist(file) or self._disk_same_content(file, content):
                 self._disk_write_content(file, content)
-        return fina, key, cert, production
+        return key, cert, production

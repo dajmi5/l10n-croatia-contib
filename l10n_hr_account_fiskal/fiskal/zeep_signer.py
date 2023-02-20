@@ -9,21 +9,21 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from lxml import etree
 
 SIGNATURE_FRAGMENT = """
- <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-     <SignedInfo>
-       <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
-       <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-       <Reference>
-         <Transforms>
-           <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
-           <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-         </Transforms>
-         <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-         <DigestValue></DigestValue>
-       </Reference>
-     </SignedInfo>
-     <SignatureValue/>
-   </Signature>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+        <Reference>
+             <Transforms>
+                 <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                 <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+             </Transforms>
+             <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+             <DigestValue></DigestValue>
+        </Reference>
+    </SignedInfo>
+    <SignatureValue/>
+</Signature>
 """
 
 
@@ -103,7 +103,7 @@ class Signer:
         # Signing will populate the Signature subtree in-place
         ctx.sign(sig_node)
 
-    def sign_zki_payload(self, data) -> str:
+    def sign_zki_payload(self, data):
         """
         Sign raw ZKI payload using the private key
         Payload is signed using SHA1+RSA algorithm. The signature is
@@ -175,10 +175,9 @@ class EnvelopedSignaturePlugin:
         return envelope, http_headers
 
     def ingress(self, envelope, http_headers, operation):
-        # TODO properly validate response!
-        # if self.fiskal_client.requires_signature(operation):
-        #     try:
-        #         self.verifier.verify_document(envelope)
-        #     except Exception as E:
-        #         print(E)
+        if self.fiskal_client.requires_signature(operation):
+            try:
+                self.verifier.verify_document(envelope)
+            except Exception as E:
+                print(E)
         return envelope, http_headers
