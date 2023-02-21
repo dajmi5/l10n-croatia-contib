@@ -36,7 +36,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         ).strftime("%Y%m%d_%H%M")
         data += "&datv=" + datum
         iznos = "&izn=%.2f" % self.amount_total
-        data += iznos.replace(".", ",")
+        data += iznos.replace(".", "")  # bez decimalne tocke u linku!
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
