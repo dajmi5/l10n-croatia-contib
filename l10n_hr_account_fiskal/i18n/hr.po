@@ -192,13 +192,13 @@ msgstr "Konvertiran"
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__create_uid
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_log__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Kreirao"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__create_date
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_log__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Kreirano"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__account_journal__l10n_hr_default_nacin_placanja__k
