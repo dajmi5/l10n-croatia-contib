@@ -65,7 +65,23 @@
                 </div>
             </t>
         </xpath>
+    </template>
+    <template
+        id="l10n_hr_report_storno_invoice_document"
+        inherit_id="account.report_invoice_document"
+    >
+        <!-- storno hack
+        adding minus to printed report
+        intentionaly in separate view form other fields,
+        so you can customize company report by deactivating view with main fileds.
+        -->
 
+        <xpath expr="//span[@t-field='line.quantity']" position="before">
+            <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']" position="before">
+            <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
+        </xpath>
 
     </template>
 </odoo>

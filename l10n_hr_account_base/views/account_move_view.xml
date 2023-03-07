@@ -110,6 +110,6 @@
             <t t-set="state" t-value="state.get('account_setup_premisse_state')" />
         </t>
     </template>
-    <!-- TODO: add onboar5dting step! -->
+    <!-- TODO: add onboarding step! -->
 
 </odoo>
