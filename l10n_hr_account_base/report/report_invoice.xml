@@ -77,10 +77,14 @@
         -->
 
         <xpath expr="//span[@t-field='line.quantity']" position="before">
-            <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
+            <span
+                t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'"
+            >- </span>
         </xpath>
         <xpath expr="//span[@t-field='line.price_subtotal']" position="before">
-            <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
+            <span
+                t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'"
+            >- </span>
         </xpath>
 
     </template>
